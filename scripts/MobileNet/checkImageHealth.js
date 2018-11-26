@@ -42,7 +42,7 @@ const check = (uri) => new Promise((resolve, reject) => {
     }
     const type = getType(res.headers['content-type']);
     if (!type) {
-      r(reject(`Invalid type: ${type} for URL: ${uri}`));
+      r(() => reject(`Invalid type: ${type} for URL: ${uri}`));
     }
 
     request(uri).on('response', () => {
