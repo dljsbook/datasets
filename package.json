@@ -1,0 +1,14 @@
+{
+  "name": "datasets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d data"
+  },
+  "author": "Kevin Scott <kevin@dljsbook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
