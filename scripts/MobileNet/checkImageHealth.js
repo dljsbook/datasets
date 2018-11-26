@@ -1,12 +1,15 @@
 const fs = require('fs');
-const path = require('path');
 const request = require('request');
-const DATA_PATH = path.resolve(__dirname, '../../data/MobileNet');
-const imagesAll = require(`${DATA_PATH}/all-images.json`);
+
+const {
+  ALL_IMAGES,
+  IMAGE_HEALTH,
+} = require('./config');
+
+const imagesAll = require(ALL_IMAGES);
 let imageHealth;
-const IMAGE_HEALTH_PATH = `${DATA_PATH}/image-health.json`;
 try {
-  imageHealth = require(IMAGE_HEALTH_PATH);
+  imageHealth = require(IMAGE_HEALTH);
 } catch(err) {
   imageHealth = {};
 }
@@ -87,7 +90,7 @@ const check = (uri) => new Promise((resolve, reject) => {
       }
 
       fs.writeFileSync(
-        IMAGE_HEALTH_PATH,
+        IMAGE_HEALTH,
         JSON.stringify(imageHealth)
       );
     }

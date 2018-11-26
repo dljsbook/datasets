@@ -1,10 +1,13 @@
 const fs = require('fs');
-const path = require('path');
-const DATA_PATH = path.resolve(__dirname, '../../data/MobileNet');
-const MAX_NUM_IMAGES = 10;
+const {
+  ALL_IMAGES,
+  MAX_NUM_IMAGES,
+  DATA_PATH,
+  IMAGE_HEALTH,
+} = require('./config');
 
-const imagesAll = require(`${DATA_PATH}/all-images.json`);
-const imageHealth = require(`${DATA_PATH}/image-health.json`);
+const imagesAll = require(ALL_IMAGES);
+const imageHealth = require(IMAGE_HEALTH);
 
 (async function() {
   const entries = Object.entries(imagesAll);
