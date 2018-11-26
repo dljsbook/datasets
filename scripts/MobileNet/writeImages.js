@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const DATA_PATH = path.resolve(__dirname, '../../data/MobileNet');
+const MAX_NUM_IMAGES = 10;
 
 const imagesAll = require(`${DATA_PATH}/all-images.json`);
 const imageHealth = require(`${DATA_PATH}/image-health.json`);
@@ -19,10 +20,8 @@ const imageHealth = require(`${DATA_PATH}/image-health.json`);
 
     if (imageHealth[key]) {
       for (let j = 0; j < values.length; j++) {
-        if (imageHealth[key][j] !== undefined) {
-          if (imageHealth[key][j] === 1) {
-            images[key].push(values[j]);
-          }
+        if (images[key].length < MAX_NUM_IMAGES && imageHealth[key][j] === 1) {
+          images[key].push(values[j]);
         }
       }
 
@@ -33,5 +32,3 @@ const imageHealth = require(`${DATA_PATH}/image-health.json`);
     }
   }
 })();
-
-
