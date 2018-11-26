@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "mobilenet": "npm run mobilenet:fetch-images && npm run mobilenet:check-image-health && npm run mobilenet:write-images",
+    "mobilenet:fetch-images": "wget -O data/MobileNet/all-images.json https://download-image-datasets.hitheory.com/imagesAll",
+    "mobilenet:check-image-health": "node scripts/MobileNet/checkImageHealth.js",
+    "mobilenet:write-images": "node scripts/MobileNet/writeImages.js",
     "deploy": "gh-pages -d data"
   },
   "author": "Kevin Scott <kevin@dljsbook.com>",
   "license": "MIT",
   "devDependencies": {
     "gh-pages": "^2.0.1"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
   }
 }
