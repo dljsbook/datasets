@@ -24,36 +24,34 @@ const getType = type => {
 
 const check = (uri) => new Promise((resolve, reject) => {
   let resolved = false;
+  const r = (fn) => {
+    if (resolved === false) {
+      resolved = true;
+      fn();
+    }
+  };
 
   setTimeout(() => {
-    if (resolved === false) {
-      reject(`Timeout error for ${uri}`);
-    }
+    r(() => reject(`Timeout error for ${uri}`));
   }, 10000);
+
+
   request.head(uri, (err, res) => {
     if (!res) {
-      resolved = true;
-      return reject(`No res found for: ${uri}`);
+      r(() => reject(`No res found for: ${uri}`));
     }
     const type = getType(res.headers['content-type']);
     if (!type) {
-      resolved = true;
-      return reject(`Invalid type: ${type} for URL: ${uri}`);
+      r(reject(`Invalid type: ${type} for URL: ${uri}`));
     }
 
     request(uri).on('response', () => {
-      resolved = true;
-      resolve();
+      r(() => resolve());
     }).on('close', () => {
-      if (resolved === false) {
-        resolved = true;
-        resolve();
-      }
+      r(() => resolve());
     }).on('error', (err) => {
-      resolved = true;
-      reject(err);
+      r(() => reject(err));
     });
-
   });
 });
 
