@@ -38,14 +38,14 @@ const check = (uri) => new Promise((resolve, reject) => {
 
   request.head(uri, (err, res) => {
     if (!res) {
-      r(() => reject(`No res found for: ${uri}`));
+      return r(() => reject(`No res found for: ${uri}`));
     }
     const type = getType(res.headers['content-type']);
     if (!type) {
-      r(() => reject(`Invalid type: ${type} for URL: ${uri}`));
+      return r(() => reject(`Invalid type: ${type} for URL: ${uri}`));
     }
 
-    request(uri).on('response', () => {
+    return request(uri).on('response', () => {
       r(() => resolve());
     }).on('close', () => {
       r(() => resolve());
