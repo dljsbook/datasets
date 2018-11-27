@@ -4,10 +4,16 @@ const {
   MAX_NUM_IMAGES,
   DATA_PATH,
   IMAGE_HEALTH,
+  NUM_TO_IDS,
+  IMAGES,
 } = require('./config');
 
 const imagesAll = require(ALL_IMAGES);
 const imageHealth = require(IMAGE_HEALTH);
+const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value]) => ({
+  ...obj,
+  [value]: key,
+}), {});
 
 (async function() {
   const entries = Object.entries(imagesAll);
@@ -19,17 +25,19 @@ const imageHealth = require(IMAGE_HEALTH);
       values,
     ] = entries[i];
 
-    images[key] = [];
+    const id = idsToNums[key];
+
+    images[id] = [];
 
     if (imageHealth[key]) {
       for (let j = 0; j < values.length; j++) {
-        if (images[key].length < MAX_NUM_IMAGES && imageHealth[key][j] === 1) {
-          images[key].push(values[j]);
+        if (images[id].length < MAX_NUM_IMAGES && imageHealth[key][j] === 1) {
+          images[id].push(values[j]);
         }
       }
 
       fs.writeFileSync(
-        `${DATA_PATH}/images.json`,
+        IMAGES,
         JSON.stringify(images)
       );
     }
