@@ -39,12 +39,13 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
           const value = values[valueId];
           images[id].push(value);
 
-          const fileId = Object.entries(imagesByFile).reduce((found, [key, entries]) => {
+          const fileId = Array(FILES).fill('').reduce((found, _, key) => {
+            const entries = imagesByFile[key];
             if (found !== undefined) {
               return found;
             }
 
-            if (!entries[id]) {
+            if (!entries || !entries[id]) {
               return key;
             }
 
