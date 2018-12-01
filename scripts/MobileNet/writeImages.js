@@ -1,8 +1,9 @@
 const fs = require('fs');
 const {
   ALL_IMAGES,
-  MAX_NUM_IMAGES,
-  DATA_PATH,
+  PER_FILE,
+  FILES,
+  // DATA_PATH,
   IMAGE_HEALTH,
   NUM_TO_IDS,
   IMAGES,
@@ -17,6 +18,7 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
 
 (async function() {
   const entries = Object.entries(imagesAll);
+  const imagesByFile = {};
   const images = {};
 
   for (let i = 0; i < entries.length; i++) {
@@ -30,16 +32,49 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
     images[id] = [];
 
     if (imageHealth[key]) {
-      for (let j = 0; j < values.length; j++) {
-        if (images[id].length < MAX_NUM_IMAGES && imageHealth[key][j] === 1) {
-          images[id].push(values[j]);
-        }
-      }
+      const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
+      let valueId = 0;
+      while (images[id].length < max && valueId < values.length) {
+        if (imageHealth[key][valueId] === 1) {
+          const value = values[valueId];
+          images[id].push(value);
 
-      fs.writeFileSync(
-        IMAGES,
-        JSON.stringify(images)
-      );
+          const fileId = Object.entries(imagesByFile).reduce((found, [key, entries]) => {
+            if (found !== undefined) {
+              return found;
+            }
+
+            if (!entries[id]) {
+              return key;
+            }
+
+            if (entries[id].length < PER_FILE) {
+              return key;
+            }
+
+            return undefined;
+          }, undefined);
+
+          if (!imagesByFile[fileId]) {
+            imagesByFile[fileId] = {};
+          }
+
+          if (!imagesByFile[fileId][id]) {
+            imagesByFile[fileId][id] = [];
+          }
+          imagesByFile[fileId][id].push(value);
+        }
+        valueId++;
+      }
     }
   }
+
+
+  Object.keys(imagesByFile).map(fileId => {
+    const file = imagesByFile[fileId];
+    fs.writeFileSync(
+      IMAGES(fileId),
+      JSON.stringify(file),
+    );
+  });
 })();
