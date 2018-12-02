@@ -10,6 +10,10 @@ const {
   IMAGES,
 } = require('./config');
 
+if (!MANIFEST) {
+  throw new Error('No manifest defined');
+}
+
 const imagesAll = require(ALL_IMAGES);
 const imageHealth = require(IMAGE_HEALTH);
 const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value]) => ({

@@ -12,4 +12,5 @@ module.exports.NUM_TO_IDS = `${DATA_ROOT}/num-to-ids.json`;
 module.exports.IMAGES = (i) => `${DATA_ROOT}/images/${i}.json`;
 module.exports.PARALLEL = 50;
 module.exports.TIMEOUT = 20000;
-module.exports.MANIEST = `${DATA_ROOT}/images/manifest.json`;
+module.exports.MANIFEST = `${DATA_ROOT}/images/manifest.json`;
+
