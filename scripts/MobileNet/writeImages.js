@@ -1,5 +1,6 @@
 const fs = require('fs');
 const {
+  MANIFEST,
   ALL_IMAGES,
   PER_FILE,
   FILES,
@@ -70,6 +71,7 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
     }
   }
 
+  const manifest = {};
 
   Object.keys(imagesByFile).map(fileId => {
     const file = imagesByFile[fileId];
@@ -77,5 +79,12 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
       IMAGES(fileId),
       JSON.stringify(file),
     );
+    manifest[fileId] = `images/${fileId}.json`;
+
+    fs.writeFileSync(
+      MANIFEST,
+      JSON.stringify(manifest),
+    );
   });
 })();
+

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "foo": "node -v",
     "mobilenet": "npm run mobilenet:fetch-images && rm data/MobileNet/image-health.json && npm run mobilenet:check-image-health && npm run mobilenet:write-images",
     "mobilenet:fetch-images": "wget -O data/MobileNet/all-images.json https://download-image-datasets.hitheory.com/imagesAll",
     "mobilenet:check-image-health": "node scripts/MobileNet/checkImageHealth.js",
