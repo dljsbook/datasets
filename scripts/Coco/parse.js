@@ -2,6 +2,7 @@ const yargs = require('yargs').argv;
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const writePerFile = require('../writePerFile');
+const writeImage = require('../writeImage');
 
 const {
   CATEGORIES,
@@ -100,4 +101,15 @@ const images = file.images.reduce((obj, img) => ({
       return p;
     },
   });
+
+  for (let i = 0; i < images.length; i++) {
+    const image = images[i];
+    const d = IN_DIR(yargs.dir, `images/data`);
+    mkdirp(d);
+    const src = `http://images.cocodataset.org/${yargs.dir}/${image.file}`;
+    writeImage(src, `${d}/${image.file}`);
+    // const p = `${d}/${path}.json`;
+
+
+  }
 })();
