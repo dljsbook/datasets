@@ -24,6 +24,17 @@ if (!yargs.dir) {
 const contents = fs.readFileSync(yargs.source);
 const file = JSON.parse(contents);
 
+const w = (file, contents) => {
+  const pieces = file.split('/');
+  pieces.pop();
+  const dir = pieces.join('/');
+  mkdirp(dir);
+  fs.writeFileSync(
+    file,
+    contents,
+  );
+};
+
 const {
   categories,
   supercategories,
@@ -90,14 +101,3 @@ const images = file.images.reduce((obj, img) => ({
     },
   });
 })();
-
-const w = (file, contents) => {
-  const pieces = file.split('/');
-  pieces.pop();
-  const dir = pieces.join('/');
-  mkdirp(dir);
-  fs.writeFileSync(
-    file,
-    contents,
-  );
-};
