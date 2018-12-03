@@ -54,7 +54,7 @@ const writePerFile = async (obj, {
       JSON.stringify(file),
     );
 
-    manifestList[fileKey] = `images/${fileKey}.json`;
+    manifestList[fileKey] = `${fileKey}.json`;
 
     fs.writeFileSync(
       manifest,
