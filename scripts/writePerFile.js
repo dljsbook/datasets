@@ -61,6 +61,8 @@ const writePerFile = async (obj, {
       JSON.stringify(manifestList),
     );
   });
+
+  return Object.values(byFile);
 };
 
 module.exports = writePerFile;
