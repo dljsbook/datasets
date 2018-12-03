@@ -47,11 +47,11 @@ const {
   supercategories: {},
 });
 
-fs.writeFileSync(
+w(
   IN_DIR(yargs.dir, CATEGORIES),
   JSON.stringify(categories),
 );
-fs.writeFileSync(
+w(
   IN_DIR(yargs.dir, SUPERCATEGORIES),
   JSON.stringify(supercategories),
 );
@@ -90,3 +90,14 @@ const images = file.images.reduce((obj, img) => ({
     },
   });
 })();
+
+const w = (file, contents) => {
+  const pieces = file.split('/');
+  pieces.pop();
+  const dir = pieces.join('/');
+  mkdirp(dir);
+  fs.writeFileSync(
+    file,
+    contents,
+  );
+};
