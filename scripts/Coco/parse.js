@@ -27,9 +27,8 @@ const file = JSON.parse(contents);
 const w = (file, contents) => {
   const pieces = file.split('/');
   pieces.pop();
-  pieces.forEach((piece, index) => {
+  pieces.filter(p => p).forEach((piece, index) => {
     const d = pieces.slice(0, index + 1).join('/');
-    console.log('d', d);
     mkdirp(d);
   });
   const dir = pieces.join('/');
