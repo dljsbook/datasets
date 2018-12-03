@@ -8,7 +8,6 @@ const {
   CATEGORIES,
   SUPERCATEGORIES,
   IN_DIR,
-  // IMAGES,
   FILES,
   PER_FILE,
   MANIFEST,
@@ -107,18 +106,14 @@ const images = file.images.reduce((obj, img) => ({
   mkdirp(d);
 
   for (let i = 0; i < files.length; i++) {
-    const fileChunk = files[i];
-    for (let j = 0; j < fileChunk.length; j++) {
-      const img = imgs[j];
-      console.log('img', img);
+    const imgs = files[i];
+    for (let j = 0; j < imgs.length; j++) {
       const {
-        file
-      } = img;
-      console.log('file', file);
+        file,
+      } = imgs[j];
       const src = `http://images.cocodataset.org/${yargs.dir}/${file}`;
       const target = `${d}/${file}`
-      console.log('src', src);
-      console.log('target', target);
+      console.log(src);
       writeImage(src, target);
     }
   }
