@@ -4,7 +4,7 @@ const yargs = require('yargs').argv;
 const DATA_ROOT = path.resolve(__dirname, '../../data/ImageNet');
 
 module.exports.DATA_ROOT = DATA_ROOT;
-module.exports.PER_FILE = yargs.perFile || 10;
+module.exports.PER_FILE = yargs.perFile || 100;
 module.exports.FILES = yargs.files || 10;
 module.exports.ALL_IMAGES = `${DATA_ROOT}/all-images.json`;
 module.exports.IMAGE_HEALTH = `${DATA_ROOT}/image-health.json`;
