@@ -90,7 +90,7 @@ const images = file.images.reduce((obj, img) => ({
 }), {});
 
 (async () => {
-  const imgs = await writePerFile(images, {
+  const files = await writePerFile(images, {
     perFile: PER_FILE,
     files: FILES,
     manifest: IN_DIR(yargs.dir, MANIFEST),
@@ -106,17 +106,20 @@ const images = file.images.reduce((obj, img) => ({
   console.log('make', d);
   mkdirp(d);
 
-  for (let i = 0; i < imgs.length; i++) {
-    const img = imgs[i];
-    console.log('img', img);
-    const {
-      file
-    } = img;
-    console.log('file', file);
-    const src = `http://images.cocodataset.org/${yargs.dir}/${file}`;
-    const target = `${d}/${file}`
-    console.log('src', src);
-    console.log('target', target);
-    writeImage(src, target);
+  for (let i = 0; i < files.length; i++) {
+    const fileChunk = files[i];
+    for (let j = 0; j < fileChunk.length; j++) {
+      const img = imgs[j];
+      console.log('img', img);
+      const {
+        file
+      } = img;
+      console.log('file', file);
+      const src = `http://images.cocodataset.org/${yargs.dir}/${file}`;
+      const target = `${d}/${file}`
+      console.log('src', src);
+      console.log('target', target);
+      writeImage(src, target);
+    }
   }
 })();
