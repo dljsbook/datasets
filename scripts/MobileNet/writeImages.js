@@ -40,6 +40,7 @@ const idsToNums = Object.entries(require(NUM_TO_IDS)).reduce((obj, [key, value])
       const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
       let valueId = 0;
       while (images[id].length < max && valueId < values.length) {
+        console.log(key, valueId);
         if (imageHealth[key][valueId] === 1) {
           const value = values[valueId];
           images[id].push(value);
