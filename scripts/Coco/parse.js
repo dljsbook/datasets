@@ -111,6 +111,12 @@ const images = file.images.reduce((obj, img) => ({
       const {
         file,
       } = imgs[j];
+
+      if (file === undefined) {
+        const msg = `Undefined file found, file ${i}, index ${j}`;
+        throw new Error(msg);
+      }
+
       const src = `http://images.cocodataset.org/${yargs.dir}/${file}`;
       const target = `${d}/${file}`
       console.log(src);
