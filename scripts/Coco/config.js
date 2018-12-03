@@ -5,7 +5,7 @@ const path = require('path');
 const DATA_ROOT = path.resolve(__dirname, '../../data/Coco');
 
 module.exports.DATA_ROOT = DATA_ROOT;
-module.exports.PER_FILE = yargs.perFile || 1500;
+module.exports.PER_FILE = yargs.perFile || 1000;
 module.exports.FILES = yargs.files || 10;
 module.exports.MANIFEST = `images/manifest.json`;
 module.exports.CATEGORIES = `categories.json`;
