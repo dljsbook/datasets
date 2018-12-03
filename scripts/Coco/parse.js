@@ -107,7 +107,11 @@ const images = file.images.reduce((obj, img) => ({
   mkdirp(d);
 
   for (let i = 0; i < imgs.length; i++) {
-    const { file } = imgs[i];
+    const img = imgs[i];
+    console.log('img', img);
+    const {
+      file
+    } = img;
     console.log('file', file);
     const src = `http://images.cocodataset.org/${yargs.dir}/${file}`;
     const target = `${d}/${file}`
