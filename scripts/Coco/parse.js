@@ -3,6 +3,7 @@ const mkdirp = require('mkdirp');
 const fs = require('fs');
 const writePerFile = require('../writePerFile');
 const writeImage = require('../writeImage');
+const w = require('../writeFile');
 
 const {
   CATEGORIES,
@@ -23,21 +24,6 @@ if (!yargs.dir) {
 
 const contents = fs.readFileSync(yargs.source);
 const file = JSON.parse(contents);
-
-const w = (file, contents) => {
-  const pieces = file.split('/');
-  pieces.pop();
-  pieces.filter(p => p).forEach((piece, index) => {
-    const d = pieces.slice(0, index + 1).join('/');
-    mkdirp(d);
-  });
-  const dir = pieces.join('/');
-  mkdirp(dir);
-  fs.writeFileSync(
-    file,
-    contents,
-  );
-};
 
 const {
   categories,
