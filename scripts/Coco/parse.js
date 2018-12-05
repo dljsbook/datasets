@@ -106,7 +106,6 @@ const images = file.images.reduce((obj, img) => ({
   });
 
   const d = IN_DIR(yargs.dir, `images/data`);
-  console.log('make', d);
   mkdirp(d);
 
   for (let i = 0; i < files.length; i++) {
