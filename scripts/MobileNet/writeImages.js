@@ -74,7 +74,7 @@ const {
 (async function() {
   const entries = Object.entries(imagesAll);
 
-  console.log(`${entries.length} entries`);
+  // console.log(`${entries.length} entries`);
 
   for (let i = 0; i < entries.length; i++) {
     const [
