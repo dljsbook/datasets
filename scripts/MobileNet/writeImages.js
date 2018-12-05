@@ -93,7 +93,9 @@ const {
       let valueId = images[id].length === undefined ? 0 : images[id].length - 1 ;
       while (images[id].length < max && valueId < values.length) {
         if (imageHealth[key][valueId] === 1) {
-          process.stdout.write('.');
+          process.stdout.clearLine();
+          process.stdout.cursorTo(0);
+          process.stdout.write(`${max - valueId} remaining `);
           const value = values[valueId];
           images[id].push(value);
 
