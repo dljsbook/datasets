@@ -89,13 +89,13 @@ const {
 
     if (imageHealth[key]) {
       const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
-      console.log(`\n${key} | ${values.length} values | ${max} max | `);
+      // console.log(`\n${key} | ${values.length} values | ${max} max | `);
       let valueId = images[id].length === undefined ? 0 : images[id].length - 1 ;
       while (images[id].length < max && valueId < values.length) {
         if (imageHealth[key][valueId] === 1) {
           process.stdout.clearLine();
           process.stdout.cursorTo(0);
-          process.stdout.write(`${max - valueId} remaining `);
+          process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
           const value = values[valueId];
           images[id].push(value);
 
