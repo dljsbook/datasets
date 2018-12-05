@@ -72,7 +72,7 @@ const {
 });
 
 (async function() {
-  const entries = Object.entries(imagesAll).slice(0, 2);
+  const entries = Object.entries(imagesAll);
 
   console.log(`${entries.length} entries`);
 
