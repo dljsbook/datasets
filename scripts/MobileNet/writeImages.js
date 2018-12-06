@@ -135,8 +135,8 @@ if (CLEAR_CACHE === 0) {
           imagesByFile[fileId][id].push(value);
 
           writeFiles(fileId);
-          valueId++;
         }
+        valueId++;
       }
     } else {
       console.log(`missing image health for ${key}`);
