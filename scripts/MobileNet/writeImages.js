@@ -50,12 +50,19 @@ let manifest = {};
 let imagesByFile = {};
 let images = {};
 
+const getImagePath = path => IMAGES(manifest[0].split('/').pop().split('.').shift());
+
 if (CLEAR_CACHE === 0) {
   manifest = getJSONFile(MANIFEST);
+  if (manifest[0]) {
+    const file = getJSONFile(getImagePath(manifest[0]));
+    const imagesPerFile = Object.values(file).shift().length;
+    if (imagesPerFile !== PER_FILE) {
+      throw new Error('Differring number of per file values, please remove existing files');
+    }
+  }
   const resp = Object.keys(manifest).sort().reduce(({ imagesByFile, images }, key) => {
-    const idx = manifest[key].split('/').pop().split('.').shift();
-    const path = IMAGES(idx);
-    const file = getJSONFile(path);
+    const file = getJSONFile(getImagePath(manifest[0]));
     return {
       imagesByFile: {
         ...imagesByFile,
@@ -80,8 +87,6 @@ if (CLEAR_CACHE === 0) {
 (async function() {
   const entries = Object.entries(imagesAll);
 
-  // console.log(`${entries.length} entries`);
-
   for (let i = 0; i < entries.length; i++) {
     const [
       key,
@@ -93,31 +98,15 @@ if (CLEAR_CACHE === 0) {
       images[id] = [];
     }
 
-    if (id === "841") {
-      console.log(key);
-      console.log('i am 841');
-    }
-
     if (imageHealth[key]) {
       const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
       let valueId = 0;
       if (images[id].length !== undefined && images[id].length > 0) {
         valueId = images[id].length;
       }
-      // console.log(`\n${key} | ${values.length} values | ${max} max | `);
-      if (id === "841") {
-        console.log('valueId', valueId);
-        console.log('total healthy', Object.values(imageHealth[key]).filter(val => val === 1).length);
-      }
       while (images[id].length < max && valueId < values.length) {
         const isHealthy = imageHealth[key][valueId] === 1;
-        // if (id === "841") {
-        //   console.log('while', imageHealth[key]);
-        // }
         if (isHealthy) {
-          if (id === "841") {
-            console.log('add it, should be one of two', max, images[id].length, values.length);
-          }
           // process.stdout.clearLine();
           // process.stdout.cursorTo(0);
           // process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
@@ -141,9 +130,6 @@ if (CLEAR_CACHE === 0) {
             return undefined;
           }, undefined);
 
-          if (id === "841") {
-            console.log(fileId);
-          }
           manifest[fileId] = `images/${fileId}.json`;
 
           if (!imagesByFile[fileId]) {
