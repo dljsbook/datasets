@@ -115,6 +115,9 @@ if (CLEAR_CACHE === 0) {
           // process.stdout.cursorTo(0);
           // process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
           const value = values[valueId];
+          if (id === "152") {
+            console.log('value', value);
+          }
           images[id].push(value);
 
           const fileId = Array(FILES).fill('').reduce((found, _, key) => {
