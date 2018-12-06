@@ -104,6 +104,10 @@ if (CLEAR_CACHE === 0) {
       if (images[id].length !== undefined && images[id].length > 0) {
         valueId = images[id].length;
       }
+
+      if (id === "152") {
+        console.log('value id', valueId);
+      }
       while (images[id].length < max && valueId < values.length) {
         const isHealthy = imageHealth[key][valueId] === 1;
         if (isHealthy) {
