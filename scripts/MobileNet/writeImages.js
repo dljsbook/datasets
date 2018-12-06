@@ -45,7 +45,6 @@ const writeFiles = fileId => {
   );
 };
 
-/*
 const manifest = getJSONFile(MANIFEST);
 const {
   imagesByFile,
@@ -71,11 +70,6 @@ const {
   imagesByFile: {},
   images: {},
 });
-*/
-
-const manifest = {};
-const imagesByFile = {};
-const images = {};
 
 (async function() {
   const entries = Object.entries(imagesAll);
