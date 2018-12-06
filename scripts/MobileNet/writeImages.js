@@ -106,9 +106,6 @@ if (CLEAR_CACHE === 0) {
         startOffset = images[id].length;
       }
 
-      if (id === "152") {
-        console.log('value id', valueId);
-      }
       while (images[id].length < max && valueId < values.length) {
         const isHealthy = imageHealth[key][valueId] === 1;
         if (isHealthy) {
@@ -119,9 +116,6 @@ if (CLEAR_CACHE === 0) {
             process.stdout.cursorTo(0);
             process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
             const value = values[valueId];
-            if (id === "152") {
-              console.log('value', value);
-            }
             images[id].push(value);
 
             const fileId = Array(FILES).fill('').reduce((found, _, key) => {
