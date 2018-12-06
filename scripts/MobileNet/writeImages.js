@@ -101,8 +101,9 @@ if (CLEAR_CACHE === 0) {
     if (imageHealth[key]) {
       const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
       let valueId = 0;
+      let startOffset = 0;
       if (images[id].length !== undefined && images[id].length > 0) {
-        valueId = images[id].length;
+        startOffset = images[id].length;
       }
 
       if (id === "152") {
@@ -111,44 +112,48 @@ if (CLEAR_CACHE === 0) {
       while (images[id].length < max && valueId < values.length) {
         const isHealthy = imageHealth[key][valueId] === 1;
         if (isHealthy) {
-          // process.stdout.clearLine();
-          // process.stdout.cursorTo(0);
-          // process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
-          const value = values[valueId];
-          if (id === "152") {
-            console.log('value', value);
-          }
-          images[id].push(value);
+          if (startOffset > 0) {
+            startOffset--;
+          } else {
+            // process.stdout.clearLine();
+            // process.stdout.cursorTo(0);
+            // process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
+            const value = values[valueId];
+            if (id === "152") {
+              console.log('value', value);
+            }
+            images[id].push(value);
 
-          const fileId = Array(FILES).fill('').reduce((found, _, key) => {
-            const entries = imagesByFile[key];
-            if (found !== undefined) {
-              return found;
+            const fileId = Array(FILES).fill('').reduce((found, _, key) => {
+              const entries = imagesByFile[key];
+              if (found !== undefined) {
+                return found;
+              }
+
+              if (!entries || !entries[id]) {
+                return key;
+              }
+
+              if (entries[id].length < PER_FILE) {
+                return key;
+              }
+
+              return undefined;
+            }, undefined);
+
+            manifest[fileId] = `images/${fileId}.json`;
+
+            if (!imagesByFile[fileId]) {
+              imagesByFile[fileId] = {};
             }
 
-            if (!entries || !entries[id]) {
-              return key;
+            if (!imagesByFile[fileId][id]) {
+              imagesByFile[fileId][id] = [];
             }
+            imagesByFile[fileId][id].push(value);
 
-            if (entries[id].length < PER_FILE) {
-              return key;
-            }
-
-            return undefined;
-          }, undefined);
-
-          manifest[fileId] = `images/${fileId}.json`;
-
-          if (!imagesByFile[fileId]) {
-            imagesByFile[fileId] = {};
+            writeFiles(fileId);
           }
-
-          if (!imagesByFile[fileId][id]) {
-            imagesByFile[fileId][id] = [];
-          }
-          imagesByFile[fileId][id].push(value);
-
-          writeFiles(fileId);
         }
         valueId++;
       }
