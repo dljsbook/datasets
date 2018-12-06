@@ -92,7 +92,8 @@ const {
       // console.log(`\n${key} | ${values.length} values | ${max} max | `);
       let valueId = images[id].length === undefined ? 0 : images[id].length - 1 ;
       while (images[id].length < max && valueId < values.length) {
-        if (imageHealth[key][valueId] === 1) {
+        const isHealthy = imageHealth[key][valueId] === 1;
+        if (isHealthy) {
           process.stdout.clearLine();
           process.stdout.cursorTo(0);
           process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
