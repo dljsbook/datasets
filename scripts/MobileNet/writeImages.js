@@ -62,7 +62,7 @@ if (CLEAR_CACHE === 0) {
     }
   }
   const resp = Object.keys(manifest).sort().reduce(({ imagesByFile, images }, key) => {
-    const file = getJSONFile(getImagePath(manifest[0]));
+    const file = getJSONFile(getImagePath(manifest[key]));
     return {
       imagesByFile: {
         ...imagesByFile,
