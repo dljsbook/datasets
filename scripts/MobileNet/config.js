@@ -7,6 +7,7 @@ const IMAGE_ROOT = `${DATA_ROOT}/images`;
 module.exports.DATA_ROOT = DATA_ROOT;
 module.exports.IMAGE_ROOT = IMAGE_ROOT;
 module.exports.PER_FILE = yargs.perFile || 100;
+module.exports.CLEAR_CACHE = parseInt(yargs.clearCache || "0", 10);
 module.exports.FILES = yargs.files || 10;
 module.exports.ALL_IMAGES = `${DATA_ROOT}/all-images.json`;
 module.exports.IMAGE_HEALTH = `${DATA_ROOT}/image-health.json`;

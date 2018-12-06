@@ -11,6 +11,7 @@ const {
   NUM_TO_IDS,
   IMAGES,
   IMAGE_ROOT,
+  CLEAR_CACHE,
 } = require('./config');
 
 if (!MANIFEST) {
@@ -45,31 +46,36 @@ const writeFiles = fileId => {
   );
 };
 
-const manifest = getJSONFile(MANIFEST);
-const {
-  imagesByFile,
-  images,
-} = Object.keys(manifest).sort().reduce(({ imagesByFile, images }, key) => {
-  const idx = manifest[key].split('/').pop().split('.').shift();
-  const path = IMAGES(idx);
-  const file = getJSONFile(path);
-  return {
-    imagesByFile: {
-      ...imagesByFile,
-      [key]: file,
-    },
-    images: Object.entries(file).reduce((imageObj, [id, values]) => ({
-      ...imageObj,
-      [id]: [
-        ...(imageObj[id] || []),
-        ...values,
-      ],
-    }), images),
-  };
-}, {
-  imagesByFile: {},
-  images: {},
-});
+let manifest = {};
+let imagesByFile = {};
+let images = {};
+
+if (CLEAR_CACHE === 0) {
+  manifest = getJSONFile(MANIFEST);
+  const resp = Object.keys(manifest).sort().reduce(({ imagesByFile, images }, key) => {
+    const idx = manifest[key].split('/').pop().split('.').shift();
+    const path = IMAGES(idx);
+    const file = getJSONFile(path);
+    return {
+      imagesByFile: {
+        ...imagesByFile,
+        [key]: file,
+      },
+      images: Object.entries(file).reduce((imageObj, [id, values]) => ({
+        ...imageObj,
+        [id]: [
+          ...(imageObj[id] || []),
+          ...values,
+        ],
+      }), images),
+    };
+  }, {
+    imagesByFile: {},
+    images: {},
+  });
+  imagesByFile = resp.imagesByFile;
+  images = resp.images;
+}
 
 (async function() {
   const entries = Object.entries(imagesAll);
