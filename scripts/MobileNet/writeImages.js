@@ -36,12 +36,12 @@ const writeFiles = fileId => {
   const file = imagesByFile[fileId];
   write(
     IMAGES(fileId),
-    JSON.stringify(file),
+    JSON.stringify(file, null, 2),
   );
 
   write(
     MANIFEST,
-    JSON.stringify(manifest),
+    JSON.stringify(manifest, null, 2),
   );
 };
 
