@@ -115,9 +115,9 @@ if (CLEAR_CACHE === 0) {
           if (startOffset > 0) {
             startOffset--;
           } else {
-            // process.stdout.clearLine();
-            // process.stdout.cursorTo(0);
-            // process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
+            process.stdout.clearLine();
+            process.stdout.cursorTo(0);
+            process.stdout.write(`${entries.length - i} labels remaining | ${max - valueId} images remaining `);
             const value = values[valueId];
             if (id === "152") {
               console.log('value', value);
