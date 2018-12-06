@@ -102,7 +102,7 @@ if (CLEAR_CACHE === 0) {
       const max = PER_FILE * FILES < values.length ? PER_FILE * FILES : values.length;
       let valueId = 0;
       if (images[id].length !== undefined && images[id].length > 0) {
-        valueId = images[id].length - 1 ;
+        valueId = images[id].length;
       }
       // console.log(`\n${key} | ${values.length} values | ${max} max | `);
       if (id === "841") {
