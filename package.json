@@ -10,7 +10,6 @@
     "mobilenet:write-images": "node scripts/MobileNet/writeImages.js",
     "coco:parse": "node scripts/Coco/parse.js",
     "deploy": "gh-pages -d data",
-    "foo": "npm run mobilenet:write-images -- --files 172 --perFile 10 && npm run mobilenet:write-images -- --files 180 --perFile 10 && npm run mobilenet:write-images -- --files 188 --perFile 10 && npm run mobilenet:write-images -- --files 196 --perFile 10 && npm run mobilenet:write-images -- --files 204 --perFile 10 && npm run mobilenet:write-images -- --files 212 --perFile 10 && npm run mobilenet:write-images -- --files 220 --perFile 10 && npm run mobilenet:write-images -- --files 228 --perFile 10"
   },
   "author": "Kevin Scott <kevin@dljsbook.com>",
   "license": "MIT",
