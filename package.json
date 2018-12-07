@@ -9,7 +9,7 @@
     "mobilenet:check-image-health": "node scripts/MobileNet/checkImageHealth.js",
     "mobilenet:write-images": "node scripts/MobileNet/writeImages.js",
     "coco:parse": "node scripts/Coco/parse.js",
-    "deploy": "gh-pages -d data",
+    "deploy": "gh-pages -d data"
   },
   "author": "Kevin Scott <kevin@dljsbook.com>",
   "license": "MIT",
